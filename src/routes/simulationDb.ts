@@ -109,10 +109,14 @@ let workspaces = [
   {
     id: 1,
     name: "Primeira área de trabalho API",
+    backgroundImage:
+      "https://cdn.discordapp.com/attachments/1013165623188148234/1013165790473756745/codebackground.jpg",
   },
   {
     id: 2,
     name: "Segunda área de trabalho API",
+    backgroundImage:
+      "https://cdn.discordapp.com/attachments/1013165623188148234/1013165790473756745/codebackground.jpg",
   },
 ];
 
