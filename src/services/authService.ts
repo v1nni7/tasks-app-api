@@ -1,35 +1,26 @@
-let dbSimulation = [
-  {
-    email: "vini@gmail.com",
-    password: "123456",
-  },
-  {
-    email: "myEmail@email.com",
-    password: "123456",
-  },
-  {
-    email: "email.test@gmail.com",
-    password: "123456",
-  },
-  {
-    email: "email.123@outlook.com",
-    password: "123456",
-  },
-  {
-    email: "test.login@hotmail.com",
-    password: "123456",
-  },
-];
+import { PrismaClient } from "@prisma/client";
+import authRepository from "../repositories/authRepository";
 
-const signIn = (authData: any) => {
-  const findUserinDb = dbSimulation.find(
-    (user) =>
-      user.email === authData.email && user.password === authData.password
-  );
-  if (!findUserinDb)
-    throw { type: "unauthorized", message: "Invalid credentials" };
+const prisma = new PrismaClient();
 
-  console.log(findUserinDb);
+export interface TypeData {
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  username: string;
+  profilePicture: string;
+}
+
+const signIn = async () => {};
+
+const signUp = async (data: TypeData) => {
+  const existingEmail = authRepository.findByEmail(data.email);
+  
+  if (existingEmail)
+    throw { type: "conflict", message: "Email must be unique" };
+
+  await authRepository.createUser(data);
 };
 
-export default { signIn };
+export default { signIn, signUp };

@@ -9,13 +9,20 @@ const getSelectedWorkspace = (id: number) => {
     (columnDb) => columnDb.workspaceId === id
   );
 
+  if(selectedWorkspaceColumns !== ''){
+    console.log('Foi')
+    return
+  }
+
   tasksDb.map((tasksDb) => {
-    tasks = {
-      ...tasks,
-      [tasksDb.id]: {
-        ...tasksDb,
-      },
-    };
+    if (tasksDb.workspaceId === id) {
+      tasks = {
+        ...tasks,
+        [tasksDb.id]: {
+          ...tasksDb,
+        },
+      };
+    }
   });
 
   columnsDb.map((columnDb) => {
