@@ -5,9 +5,9 @@ const signIn = async (req: Request, res: Response) => {
   try {
     const loginData = req.body;
 
-    authService.signIn(loginData);
+    const userToken = await authService.signIn(loginData);
 
-    res.sendStatus(200);
+    res.status(200).send(userToken);
   } catch (error) {
     res.status(401).send(error);
   }

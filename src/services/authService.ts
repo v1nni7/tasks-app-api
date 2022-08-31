@@ -1,14 +1,28 @@
 import { PrismaClient, Users } from "@prisma/client";
 import authRepository from "../repositories/authRepository";
-import { handleConflictError } from "../utils/errorUtils";
+import {
+  handleConflictError,
+  handleUnauthorizedError,
+} from "../utils/errorUtils";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
 
-export type UserData = Omit<Users, "id">
+export type UserData = Omit<Users, "id">;
 
 const signIn = async (data: UserData) => {
-  
+  const user = await authRepository.findByEmail(data.email);
+
+  if (!user) throw handleUnauthorizedError("Invalid credentials");
+
+  const comparePassword = bcrypt.compareSync(data.password, user.password);
+
+  if (!comparePassword) throw handleUnauthorizedError("Invalid credentials");
+
+  const token = jwt.sign({ userId: user.id }, "@TeST3_ToK3n");
+
+  return token;
 };
 
 const signUp = async (data: UserData) => {
