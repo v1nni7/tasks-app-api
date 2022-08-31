@@ -1,10 +1,10 @@
 import { PrismaClient } from "@prisma/client";
-import { TypeData } from "../services/authService";
+import { UserData } from "../services/authService";
 
 const prisma = new PrismaClient();
 
-const findByEmail = (email: string) => {
-  const result = prisma.users.findUnique({
+const findByEmail = async (email: string) => {
+  const result = await prisma.users.findUnique({
     where: {
       email,
     },
@@ -13,9 +13,19 @@ const findByEmail = (email: string) => {
   return result;
 };
 
-const createUser = (data: TypeData) => {
+const findByUsername = async (username: string) => {
+  const result = await prisma.users.findUnique({
+    where: {
+      username,
+    },
+  });
+
+  return result;
+};
+
+const createUser = (data: UserData) => {
   const result = prisma.users.create({ data });
   return result;
 };
 
-export default { findByEmail, createUser };
+export default { findByEmail, findByUsername, createUser };
