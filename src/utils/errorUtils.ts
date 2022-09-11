@@ -1,4 +1,4 @@
-const handleConflictError = (message: string) => {
+const conflictError = (message: string) => {
   return {
     status: 409,
     type: "conflict",
@@ -6,7 +6,7 @@ const handleConflictError = (message: string) => {
   };
 };
 
-const handleNotFoundError = (message: string) => {
+const notFoundError = (message: string) => {
   return {
     status: 404,
     type: "not found",
@@ -14,7 +14,7 @@ const handleNotFoundError = (message: string) => {
   };
 };
 
-const handleUnauthorizedError = (message: string) => {
+const unauthorizedError = (message: string) => {
   return {
     status: 401,
     type: "unauthorized",
@@ -22,4 +22,4 @@ const handleUnauthorizedError = (message: string) => {
   };
 };
 
-export { handleConflictError, handleNotFoundError, handleUnauthorizedError };
+export { conflictError, notFoundError, unauthorizedError };

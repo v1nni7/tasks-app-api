@@ -17,7 +17,7 @@ model Users {
   lastName       String?
   password       String
   username       String   @unique
-  profilePicture String
+  profilePicture String?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
