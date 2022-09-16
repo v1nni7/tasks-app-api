@@ -7,10 +7,22 @@ const selectedWorkspace = async (req: Request, res: Response) => {
   try {
     const workspaceData = workspaceService.getSelectedWorkspace(id);
 
-    res.status(200).send(workspaceData);
+    return res.status(200).send(workspaceData);
   } catch (error) {
-    res.status(422).send(error);
+    return res.status(422).send(error);
   }
 };
 
-export default { selectedWorkspace };
+const createdWorkspaces = async (req: Request, res: Response) => {
+  const id: number = parseInt(req.params.id);
+
+  try {
+    const createdWorkspacesData = await workspaceService.getCreatedWorkspaces(id);
+
+    return res.status(200).send(createdWorkspacesData);
+  } catch (error) {
+    return res.status(400).send(error)
+  }
+}
+
+export default { selectedWorkspace, createdWorkspaces };

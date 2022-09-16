@@ -11,13 +11,48 @@ datasource db {
 }
 
 model Users {
-  id             Int      @id @default(autoincrement())
-  email          String   @unique
+  id             Int          @id @default(autoincrement())
+  email          String       @unique
   firstName      String?
   lastName       String?
   password       String
-  username       String   @unique
+  username       String       @unique
   profilePicture String?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  workspaces     Workspaces[]
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model Workspaces {
+  id         Int       @id @default(autoincrement())
+  name       String
+  background String?
+  userId     Int
+  user       Users     @relation(fields: [userId], references: [id])
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  Columns    Columns[]
+}
+
+model Columns {
+  id          Int        @id @default(autoincrement())
+  stringId    String
+  title       String
+  order       Int
+  workspaceId Int
+  workspace   Workspaces @relation(fields: [workspaceId], references: [id])
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  Tasks       Tasks[]
+}
+
+model Tasks {
+  id        Int      @id @default(autoincrement())
+  stringId  String
+  title     String
+  order     Int
+  columnId  Int
+  column    Columns  @relation(fields: [columnId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

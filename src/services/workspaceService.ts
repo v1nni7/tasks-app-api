@@ -1,3 +1,4 @@
+import workspaceRepository from "../repositories/workspaceRepository";
 import { columnsDb, tasksDb } from "../routes/simulationDb";
 
 const getSelectedWorkspace = (id: number) => {
@@ -9,10 +10,13 @@ const getSelectedWorkspace = (id: number) => {
     (columnDb) => columnDb.workspaceId === id
   );
 
-  if(selectedWorkspaceColumns !== ''){
-    console.log('Foi')
-    return
+  console.log(selectedWorkspaceColumns);
+
+  if (!selectedWorkspaceColumns) {
+    return;
   }
+
+  console.log("Recebido");
 
   tasksDb.map((tasksDb) => {
     if (tasksDb.workspaceId === id) {
@@ -46,7 +50,7 @@ const getSelectedWorkspace = (id: number) => {
   });
 
   const sortColumns = selectedWorkspaceColumns.sort(
-    (orderNumberA, orderNumberB) => {
+    (orderNumberA: any, orderNumberB: any) => {
       return orderNumberA.order < orderNumberB.order
         ? -1
         : orderNumberA.order > orderNumberB.order
@@ -68,7 +72,13 @@ const getSelectedWorkspace = (id: number) => {
   return workspaceData;
 };
 
-export default { getSelectedWorkspace };
+const getCreatedWorkspaces = async (id: number) => {
+  const createdWorkspaces = await workspaceRepository.getUserWorkspaces(id);
+
+  return createdWorkspaces;
+};
+
+export default { getSelectedWorkspace, getCreatedWorkspaces };
 
 /*   
   const selectedWorkspaceColumns: any = columnsDb.filter(

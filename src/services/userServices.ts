@@ -1,10 +1,14 @@
+import jwt from "jsonwebtoken";
 import { hashSync, compareSync } from "bcrypt";
-import { Users } from "@prisma/client";
 
-import { conflictError, unauthorizedError } from "../utils/errorUtils";
 import userRepository from "../repositories/userRepository";
+import { conflictError, unauthorizedError } from "../utils/errorUtils";
 
-type SignUpType = Omit<Users, "id">;
+type SignUpType = {
+  email: string;
+  username: string;
+  password: string;
+};
 
 const getUsers = async () => {
   return await userRepository.getUsers();
@@ -12,9 +16,12 @@ const getUsers = async () => {
 
 const signUp = async (signUpData: SignUpType) => {
   const isAvailableEmail = await userRepository.findByEmail(signUpData.email);
+  const isAvailableUsername = await userRepository.findByUsername(
+    signUpData.username
+  );
 
-  if (isAvailableEmail) {
-    throw conflictError("Email already in use");
+  if (isAvailableEmail || isAvailableUsername) {
+    throw conflictError("Email or username already in use");
   }
 
   const hashedPassword = hashSync(signUpData.password, 10);
@@ -40,7 +47,19 @@ const signIn = async (signInData: { email: string; password: string }) => {
     throw unauthorizedError("Invalid credentials");
   }
 
-  return user;
+  const newUser = {
+    id: user.id,
+    email: user.email,
+    username: user.username,
+    firstName: user.firstName,
+    lastNamme: user.lastName,
+    profilePicture: user.profilePicture,
+    token: jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+      expiresIn: "14 days",
+    }),
+  };
+
+  return newUser;
 };
 
 export default { getUsers, signUp, signIn };

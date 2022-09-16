@@ -6,6 +6,7 @@ let tasksDb = [
     totalCheckbox: 6,
     completedCheckbox: 2,
     workspaceId: 1,
+    order: 0,
   },
   {
     id: "task-2",
@@ -14,6 +15,7 @@ let tasksDb = [
     totalCheckbox: 6,
     completedCheckbox: 2,
     workspaceId: 1,
+    order: 1,
   },
   {
     id: "task-3",
@@ -23,6 +25,7 @@ let tasksDb = [
     totalCheckbox: 6,
     completedCheckbox: 2,
     workspaceId: 1,
+    order: 2,
   },
   {
     id: "task-4",
@@ -32,6 +35,7 @@ let tasksDb = [
     totalCheckbox: 6,
     completedCheckbox: 2,
     workspaceId: 1,
+    order: 3,
   },
   {
     id: "task-5",
@@ -41,6 +45,7 @@ let tasksDb = [
     totalCheckbox: 6,
     completedCheckbox: 2,
     workspaceId: 1,
+    order: 4,
   },
 ];
 
@@ -60,7 +65,7 @@ let columnsDb = [
   {
     id: "column-3",
     title: "Finalizado",
-    order: 3,
+    order: 0,
     workspaceId: 1,
   },
   {

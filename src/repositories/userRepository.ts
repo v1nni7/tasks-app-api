@@ -18,10 +18,18 @@ const findByEmail = (email: string) => {
   });
 };
 
+const findByUsername = (username: string) => {
+  return prisma.users.findUnique({
+    where: {
+      username,
+    },
+  });
+};
+
 const createUser = (userData: UserDataType) => {
   return prisma.users.create({
     data: userData,
   });
 };
 
-export default { findByEmail, createUser, getUsers };
+export default { findByEmail, findByUsername, createUser, getUsers };

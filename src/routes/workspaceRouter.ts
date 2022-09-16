@@ -4,9 +4,7 @@ import { workspaces } from "./simulationDb";
 
 const workspaceRouter = Router();
 
-workspaceRouter.get("/workspaces", (req: Request, res: Response) => {
-  res.status(200).send(workspaces);
-});
+workspaceRouter.get("/workspaces/:id", workspaceController.createdWorkspaces);
 
 workspaceRouter.get("/workspace/:id", workspaceController.selectedWorkspace);
 

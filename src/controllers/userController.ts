@@ -9,7 +9,11 @@ const getUsers = async (req: Request, res: Response) => {
 
 const signUp = async (req: Request, res: Response) => {
   try {
-    const signUpData = req.body;
+    const signUpData = {
+      email: req.body.email,
+      username: req.body.username,
+      password: req.body.password,
+    };
 
     await userServices.signUp(signUpData);
 
