@@ -8,4 +8,10 @@ const getUserWorkspaces = (id: number) => {
   });
 };
 
-export default { getUserWorkspaces };
+const create = (data: any) => {
+  return prisma.workspaces.create({
+    data,
+  });
+};
+
+export default { getUserWorkspaces, create };

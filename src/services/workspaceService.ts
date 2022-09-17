@@ -78,7 +78,13 @@ const getCreatedWorkspaces = async (id: number) => {
   return createdWorkspaces;
 };
 
-export default { getSelectedWorkspace, getCreatedWorkspaces };
+const createWorkspace = async (data: any) => {
+  const createdWorkspace = await workspaceRepository.create(data);
+
+  return createdWorkspace;
+};
+
+export default { getSelectedWorkspace, getCreatedWorkspaces, createWorkspace };
 
 /*   
   const selectedWorkspaceColumns: any = columnsDb.filter(
