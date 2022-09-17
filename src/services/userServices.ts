@@ -48,7 +48,6 @@ const signIn = async (signInData: { email: string; password: string }) => {
   }
 
   const newUser = {
-    id: user.id,
     email: user.email,
     username: user.username,
     firstName: user.firstName,

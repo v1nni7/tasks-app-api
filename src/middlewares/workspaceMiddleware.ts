@@ -1,17 +1,17 @@
-import { NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
 const validateUserToken = (req: Request, res: Response, next: NextFunction) => {
-  const token = req.headers.authorization;
+  const { authorization } = req.headers;
 
-  if (!token) {
+  if (!authorization) {
     return res.status(401).json({ message: "Unauthorized" });
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded: any = jwt.verify(authorization, process.env.JWT_SECRET);
 
-    req.user = decoded;
+    req.body.userId = decoded.id;
 
     next();
   } catch (error) {
