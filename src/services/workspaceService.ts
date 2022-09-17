@@ -11,4 +11,9 @@ const createWorkspace = async (data: WorkspaceDataType) => {
   return createdWorkspace;
 };
 
-export default { createWorkspace };
+const getWorkspaces = async (userId: number) => {
+  const workspaces = await workspaceRepository.getWorkspaces(userId);
+  return workspaces;
+};
+
+export default { createWorkspace, getWorkspaces };

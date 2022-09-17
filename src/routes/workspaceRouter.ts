@@ -10,4 +10,10 @@ workspaceRouter.post(
   workspaceController.createWorkspace
 );
 
+workspaceRouter.get(
+  "/workspaces",
+  authMiddleware.validateToken,
+  workspaceController.getWorkspaces
+);
+
 export default workspaceRouter;

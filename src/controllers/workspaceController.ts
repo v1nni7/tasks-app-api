@@ -13,4 +13,16 @@ const createWorkspace = async (req: Request, res: Response) => {
   }
 };
 
-export default { createWorkspace };
+const getWorkspaces = async (req: Request, res: Response) => {
+  const { userId } = req.body;
+
+  try {
+    const workspaces = await workspaceService.getWorkspaces(userId);
+
+    return res.status(200).json(workspaces);
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+};
+
+export default { createWorkspace, getWorkspaces };

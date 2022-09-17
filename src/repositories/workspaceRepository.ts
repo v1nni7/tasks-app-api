@@ -1,6 +1,6 @@
 import { prisma } from "../database";
 
-const getUserWorkspaces = (id: number) => {
+const getWorkspaces = (id: number) => {
   return prisma.workspaces.findMany({
     where: {
       userId: id,
@@ -14,4 +14,4 @@ const create = (data: any) => {
   });
 };
 
-export default { getUserWorkspaces, create };
+export default { getWorkspaces, create };
