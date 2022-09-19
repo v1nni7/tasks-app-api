@@ -19,7 +19,7 @@ const signUp = async (req: Request, res: Response) => {
 
     res.sendStatus(201);
   } catch (error) {
-    res.status(error.status).json(error.message);
+    res.status(error.status || 500).json(error.message);
   }
 };
 
@@ -31,7 +31,7 @@ const signIn = async (req: Request, res: Response) => {
 
     res.status(200).json(user);
   } catch (error) {
-    res.status(error.status).json(error.message);
+    res.status(error.status || 500).json(error.message);
   }
 };
 

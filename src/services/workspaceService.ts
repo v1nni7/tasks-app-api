@@ -6,14 +6,41 @@ type WorkspaceDataType = {
   background: string;
 };
 
-const createWorkspace = async (data: WorkspaceDataType) => {
-  const createdWorkspace = await workspaceRepository.create(data);
-  return createdWorkspace;
+const createBoard = async (data: WorkspaceDataType) => {
+  const createdBoard = await workspaceRepository.create(data);
+  return createdBoard;
 };
 
-const getWorkspaces = async (userId: number) => {
-  const workspaces = await workspaceRepository.getWorkspaces(userId);
-  return workspaces;
+const createColumn = async (data: any) => {
+  const stringId = data.title.replace(/\s+/g, "-").toLowerCase();
+
+  const createdColumn = await workspaceRepository.createColumn({
+    ...data,
+    stringId,
+  });
+
+  return createdColumn;
 };
 
-export default { createWorkspace, getWorkspaces };
+const createTask = async (data: any) => {
+  const stringId = data.title.replace(/\s+/g, "-").toLowerCase();
+
+  const createdTask = await workspaceRepository.createTask({
+    ...data,
+    stringId,
+  });
+
+  return createdTask;
+};
+
+const getBoards = async (userId: number) => {
+  const boards = await workspaceRepository.getBoards(userId);
+  return boards;
+};
+
+const getBoard = async (id: string) => {
+  const boardData = await workspaceRepository.getBoard(id);
+  return boardData;
+};
+
+export default { createBoard, getBoards, getBoard, createColumn, createTask };

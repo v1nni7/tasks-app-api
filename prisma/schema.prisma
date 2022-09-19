@@ -11,48 +11,52 @@ datasource db {
 }
 
 model Users {
-  id             Int          @id @default(autoincrement())
-  email          String       @unique
+  id             Int      @id @default(autoincrement())
+  email          String   @unique
   firstName      String?
   lastName       String?
   password       String
-  username       String       @unique
+  username       String   @unique
   profilePicture String?
-  workspaces     Workspaces[]
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  boards         Boards[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
-model Workspaces {
+model Boards {
   id         Int       @id @default(autoincrement())
-  name       String
-  background String?
   userId     Int
-  user       Users     @relation(fields: [userId], references: [id])
+  stringId   String    @unique
+  name       String
+  background String
+  Users      Users?    @relation(fields: [userId], references: [id])
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
-  Columns    Columns[]
+  columns    Columns[]
+  tasks      Tasks[]
 }
 
 model Columns {
-  id          Int        @id @default(autoincrement())
-  stringId    String
-  title       String
-  order       Int
-  workspaceId Int
-  workspace   Workspaces @relation(fields: [workspaceId], references: [id])
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  Tasks       Tasks[]
+  id        Int      @id @default(autoincrement())
+  stringId  String   @unique
+  order     Int
+  boardId   String
+  title     String
+  Boards    Boards?  @relation(fields: [boardId], references: [stringId])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  tasks     Tasks[]
 }
 
 model Tasks {
   id        Int      @id @default(autoincrement())
-  stringId  String
-  title     String
+  stringId  String   @unique
   order     Int
+  boardId   String
   columnId  Int
-  column    Columns  @relation(fields: [columnId], references: [id])
+  title     String
+  boards    Boards?  @relation(fields: [boardId], references: [stringId])
+  columns   Columns? @relation(fields: [columnId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

@@ -5,15 +5,32 @@ import authMiddleware from "../middlewares/authMiddleware";
 const workspaceRouter = Router();
 
 workspaceRouter.post(
-  "/workspace",
+  "/workspaces",
   authMiddleware.validateToken,
-  workspaceController.createWorkspace
+  workspaceController.createBoard
+);
+
+workspaceRouter.post(
+  "/workspaces/create/column",
+  //authMiddleware.validateToken,
+  workspaceController.createColumn
+);
+
+workspaceRouter.post(
+  "/workspaces/create/task",
+  //authMiddleware.validateToken,
+  workspaceController.createTask
 );
 
 workspaceRouter.get(
   "/workspaces",
   authMiddleware.validateToken,
-  workspaceController.getWorkspaces
+  workspaceController.getBoards
 );
+
+workspaceRouter.get(
+  "/board/:id",
+  workspaceController.getBoard
+)
 
 export default workspaceRouter;
