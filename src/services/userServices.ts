@@ -47,18 +47,11 @@ const signIn = async (signInData: { email: string; password: string }) => {
     throw unauthorizedError("Invalid credentials");
   }
 
-  const newUser = {
-    email: user.email,
-    username: user.username,
-    firstName: user.firstName,
-    lastNamme: user.lastName,
-    profilePicture: user.profilePicture,
-    token: jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-      expiresIn: "14 days",
-    }),
-  };
+  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+    expiresIn: "14 days",
+  });
 
-  return newUser;
+  return { user, token };
 };
 
 export default { getUsers, signUp, signIn };

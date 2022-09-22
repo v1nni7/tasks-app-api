@@ -5,7 +5,7 @@ import authMiddleware from "../middlewares/authMiddleware";
 const workspaceRouter = Router();
 
 workspaceRouter.post(
-  "/workspaces",
+  "/boards",
   authMiddleware.validateToken,
   workspaceController.createBoard
 );
