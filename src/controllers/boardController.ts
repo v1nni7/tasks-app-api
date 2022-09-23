@@ -31,7 +31,7 @@ const createColumn = async (req: Request, res: Response) => {
 
     const column = await boardService.createColumn(columnData);
 
-    res.status(201).json(column);
+    res.status(201).json({...column, taskIds: []});
   } catch (error) {
     res.status(error.status || 500).json(error.message);
   }

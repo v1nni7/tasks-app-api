@@ -13,7 +13,14 @@ const createBoard = async (data) => {
 };
 
 const createColumn = async (data) => {
-  const column = await boardRepository.createColumn(data);
+  const newColumnData = {
+    title: data.title,
+    order: data.order,
+    boardId: data.boardId,
+    stringId: data.stringId,
+  };
+
+  const column = await boardRepository.createColumn(newColumnData);
 
   return column;
 };
