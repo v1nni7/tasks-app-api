@@ -5,12 +5,6 @@ import authMiddleware from "../middlewares/authMiddleware";
 const workspaceRouter = Router();
 
 workspaceRouter.post(
-  "/boards",
-  authMiddleware.validateToken,
-  workspaceController.createBoard
-);
-
-workspaceRouter.post(
   "/workspaces/create/column",
   //authMiddleware.validateToken,
   workspaceController.createColumn
