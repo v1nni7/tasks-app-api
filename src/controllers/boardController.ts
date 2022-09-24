@@ -25,16 +25,47 @@ const createBoard = async (req: Request, res: Response) => {
   }
 };
 
+const getBoardData = async (req: Request, res: Response) => {
+  try {
+    const boardId = req.params.boardId;
+
+    const boardData = await boardService.getBoardData(boardId);
+
+    res.status(200).json(boardData);
+  } catch (error) {
+    res.status(error.status || 500).json(error.message);
+  }
+};
+
 const createColumn = async (req: Request, res: Response) => {
   try {
     const columnData = req.body;
 
     const column = await boardService.createColumn(columnData);
 
-    res.status(201).json({...column, taskIds: []});
+    res.status(201).json({ ...column, taskIds: [] });
+  } catch (error) {
+    console.error(error)
+    res.status(error.status || 500).json(error.message);
+  }
+};
+
+const createTask = async (req: Request, res: Response) => {
+  try {
+    const taskData = req.body;
+
+    const task = await boardService.createTask(taskData);
+
+    res.status(201).json(task);
   } catch (error) {
     res.status(error.status || 500).json(error.message);
   }
-}
+};
 
-export default { getBoards, createBoard, createColumn };
+export default {
+  getBoards,
+  createBoard,
+  createColumn,
+  createTask,
+  getBoardData,
+};

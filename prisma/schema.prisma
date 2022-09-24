@@ -25,38 +25,35 @@ model Users {
 
 model Boards {
   id         Int       @id @default(autoincrement())
-  userId     Int
-  stringId   String    @unique
+  userId     Int?
+  safeUrl    String    @unique
   name       String
   background String
+  columns    Columns[]
   Users      Users?    @relation(fields: [userId], references: [id])
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
-  columns    Columns[]
-  tasks      Tasks[]
 }
 
 model Columns {
   id        Int      @id @default(autoincrement())
-  stringId  String   @unique
   order     Int
   boardId   String
   title     String
-  Boards    Boards?  @relation(fields: [boardId], references: [stringId])
+  uuid      String   @unique
+  taskIds   Tasks[]
+  Boards    Boards?  @relation(fields: [boardId], references: [safeUrl])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  tasks     Tasks[]
 }
 
 model Tasks {
   id        Int      @id @default(autoincrement())
-  stringId  String   @unique
   order     Int
-  boardId   String
-  columnId  Int
+  columnId  String
   title     String
-  boards    Boards?  @relation(fields: [boardId], references: [stringId])
-  columns   Columns? @relation(fields: [columnId], references: [id])
+  uuid      String   @unique
+  Columns   Columns? @relation(fields: [columnId], references: [uuid])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

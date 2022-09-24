@@ -14,10 +14,34 @@ const createBoard = (data) => {
   });
 };
 
+const getBoardData = (boardId: string) => {
+  return prisma.columns.findMany({
+    where: {
+      boardId,
+    },
+    include: {
+      taskIds: true,
+    },
+  });
+};
+
 const createColumn = (data) => {
   return prisma.columns.create({
     data,
   });
 };
 
-export default { getBoards, createBoard, createColumn };
+const createTask = (data) => {
+  console.log(data);
+  return prisma.tasks.create({
+    data,
+  });
+};
+
+export default {
+  getBoards,
+  createBoard,
+  createColumn,
+  createTask,
+  getBoardData
+};

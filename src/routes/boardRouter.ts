@@ -10,6 +10,12 @@ boardRouter.get(
   boardController.getBoards
 );
 
+boardRouter.get(
+  "/boards/data/:boardId",
+  authMiddleware.validateToken,
+  boardController.getBoardData
+);
+
 boardRouter.post(
   "/boards",
   authMiddleware.validateToken,
@@ -20,6 +26,12 @@ boardRouter.post(
   "/boards/columns",
   authMiddleware.validateToken,
   boardController.createColumn
+);
+
+boardRouter.post(
+  "/boards/tasks",
+  authMiddleware.validateToken,
+  boardController.createTask
 );
 
 export default boardRouter;
