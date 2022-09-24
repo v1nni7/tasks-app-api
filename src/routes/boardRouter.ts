@@ -34,4 +34,16 @@ boardRouter.post(
   boardController.createTask
 );
 
+boardRouter.put(
+  "/boards/columns",
+  authMiddleware.validateToken,
+  boardController.updateColumn
+);
+
+boardRouter.put(
+  "/boards/tasks",
+  authMiddleware.validateToken,
+  boardController.updateTask
+);
+
 export default boardRouter;

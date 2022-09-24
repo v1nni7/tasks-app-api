@@ -8,12 +8,6 @@ const getBoards = (userId: number) => {
   });
 };
 
-const createBoard = (data) => {
-  return prisma.boards.create({
-    data,
-  });
-};
-
 const getBoardData = (boardId: string) => {
   return prisma.columns.findMany({
     where: {
@@ -22,6 +16,12 @@ const getBoardData = (boardId: string) => {
     include: {
       taskIds: true,
     },
+  });
+};
+
+const createBoard = (data) => {
+  return prisma.boards.create({
+    data,
   });
 };
 
@@ -38,10 +38,38 @@ const createTask = (data) => {
   });
 };
 
+const updateColumn = (data) => {
+  console.log(data);
+
+  return prisma.columns.update({
+    where: {
+      uuid: data.uuid,
+    },
+    data: {
+      title: data.title,
+      order: data.order,
+    },
+  });
+};
+
+const updateTask = (data) => {
+  return prisma.tasks.update({
+    where: {
+      uuid: data.uuid,
+    },
+    data: {
+      title: data.title,
+      order: data.order,
+    },
+  });
+};
+
 export default {
   getBoards,
   createBoard,
   createColumn,
   createTask,
-  getBoardData
+  getBoardData,
+  updateColumn,
+  updateTask,
 };

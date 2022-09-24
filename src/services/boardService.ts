@@ -73,10 +73,32 @@ const createTask = async (data) => {
   return task;
 };
 
+const updateColumn = async (data) => {
+  const column = await boardRepository.updateColumn({
+    uuid: data.uuid,
+    title: data.title,
+    order: data.order,
+  });
+
+  return column;
+};
+
+const updateTask = async (data) => {
+  const task = await boardRepository.updateTask({
+    uuid: data.uuid,
+    title: data.title,
+    order: data.order,
+  });
+
+  return task;
+};
+
 export default {
   getBoards,
+  getBoardData,
   createBoard,
   createColumn,
   createTask,
-  getBoardData,
+  updateColumn,
+  updateTask,
 };
