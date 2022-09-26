@@ -7,6 +7,7 @@ const signUp = async (req: Request, res: Response, next: NextFunction) => {
     username: Joi.string().required(),
     password: Joi.string().required(),
     confirmPassword: Joi.string().valid(Joi.ref("password")).required(),
+    termsConditions: Joi.boolean().valid(true).required(),
   });
 
   const { error } = schema.validate(req.body);

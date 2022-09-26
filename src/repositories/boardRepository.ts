@@ -32,15 +32,12 @@ const createColumn = (data) => {
 };
 
 const createTask = (data) => {
-  console.log(data);
   return prisma.tasks.create({
     data,
   });
 };
 
 const updateColumn = (data) => {
-  console.log(data);
-
   return prisma.columns.update({
     where: {
       uuid: data.uuid,
@@ -60,6 +57,7 @@ const updateTask = (data) => {
     data: {
       title: data.title,
       order: data.order,
+      columnId: data.columnId,
     },
   });
 };

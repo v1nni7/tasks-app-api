@@ -88,6 +88,7 @@ const updateTask = async (data) => {
     uuid: data.uuid,
     title: data.title,
     order: data.order,
+    columnId: data.columnId,
   });
 
   return task;
